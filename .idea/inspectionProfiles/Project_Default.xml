@@ -1,0 +1,73 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="17">
+            <item index="0" class="java.lang.String" itemvalue="uWSGI" />
+            <item index="1" class="java.lang.String" itemvalue="PyJWT" />
+            <item index="2" class="java.lang.String" itemvalue="botocore" />
+            <item index="3" class="java.lang.String" itemvalue="cffi" />
+            <item index="4" class="java.lang.String" itemvalue="asgiref" />
+            <item index="5" class="java.lang.String" itemvalue="cryptography" />
+            <item index="6" class="java.lang.String" itemvalue="django-storages" />
+            <item index="7" class="java.lang.String" itemvalue="boto3" />
+            <item index="8" class="java.lang.String" itemvalue="s3transfer" />
+            <item index="9" class="java.lang.String" itemvalue="Django" />
+            <item index="10" class="java.lang.String" itemvalue="acme" />
+            <item index="11" class="java.lang.String" itemvalue="certifi" />
+            <item index="12" class="java.lang.String" itemvalue="charset-normalizer" />
+            <item index="13" class="java.lang.String" itemvalue="certbot" />
+            <item index="14" class="java.lang.String" itemvalue="ConfigArgParse" />
+            <item index="15" class="java.lang.String" itemvalue="django-cors-headers" />
+            <item index="16" class="java.lang.String" itemvalue="urllib3" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E701" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="stocks.models.Envelope.objects" />
+          <option value="stocks.models.Stock.objects" />
+          <option value="project.models.File.*" />
+          <option value="project.models.Part.*" />
+          <option value="project.models.Phase.objects" />
+          <option value="project.models.ProjectHead.objects" />
+          <option value="project.models.Project.objects" />
+          <option value="project.models.Owner.objects" />
+          <option value="common.models.Address.objects" />
+          <option value="project.models.ShareableLink.objects" />
+          <option value="appointments.models.Appointment.*" />
+          <option value="appointments.models.Service.*" />
+          <option value="events.models.Event.*" />
+          <option value="people.models.Professional.*" />
+          <option value="people.models.Guest.*" />
+          <option value="people.models.Professional.objects" />
+          <option value="people.models.Guest.objects" />
+          <option value="events.models.Event.objects" />
+          <option value="appointments.models.Appointment.objects" />
+          <option value="app.notas.unittests.test_cron_job.TestCronJob.create_mock_response" />
+          <option value="app.notas.models.nota.translations" />
+          <option value="business.models.Business.*" />
+          <option value="requests.models.Response.__await__" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
         name: pypi
-        url: https://pypi.org/p/kuid
+        url: https://pypi.org/p/br-regras-fiscais
 
     steps:
     - name: Install poetry

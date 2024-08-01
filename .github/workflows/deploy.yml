@@ -1,0 +1,31 @@
+name: Upload Python Package
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    permissions:
+        id-token: write
+    runs-on: ubuntu-latest
+    environment:
+        name: pypi
+        url: https://pypi.org/p/kuid
+
+    steps:
+    - name: Install poetry
+      run: pipx install poetry
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: poetry
+
+    - name: Build and publish
+      run: |
+        poetry build
+
+    - name: Publish release distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1

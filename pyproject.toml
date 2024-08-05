@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "br-regras-fiscais"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Calculate BR taxes from NF total value, and calculate the original value of a NF from a received payment"
+authors = ["Bibi <you@example.com>", "Julio Reis <juliocsreis@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 

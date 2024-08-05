@@ -4,7 +4,7 @@ from decimal import Decimal
 from br_regras_fiscais.taxes_calc import TaxesCalc
 
 
-class TestTaxesCalc(unittest.TestCase):
+class TestOriginalValue(unittest.TestCase):
     def setUp(self):
         self.tax_calc = TaxesCalc()
 

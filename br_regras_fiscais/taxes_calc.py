@@ -2,6 +2,8 @@ from decimal import Decimal
 
 
 class TaxesCalc:
+    CRF_taxes_keys = ["valor_cofins", "valor_pis", "valor_csll"]
+
     tax_values: dict = dict(
         valor_cofins=Decimal("0.03"),
         valor_csll=Decimal("0.01"),
@@ -21,6 +23,8 @@ class TaxesCalc:
             + self.tax_values["valor_pis"]
             + self.tax_values["valor_csll"]
         )
+
+        # crf_taxes = sum(x for )
         if value * crf_taxes > 10:
             assumed_taxes += crf_taxes
 
@@ -30,14 +34,20 @@ class TaxesCalc:
         return original_value.quantize(Decimal("0.00"))
 
     # TODO call Allephy check this rules, but first understand where we are actually using it
+    # TODO output dict for nfe on core_api
+    def calc_tax(self, total_value: Decimal) -> dict:
+        tax_values = dict(
+            valor_cofins=total_value * self.tax_values["valor_cofins"],
+            valor_csll=total_value * self.tax_values["valor_csll"],
+            valor_ir=total_value * self.tax_values["valor_ir"],
+            valor_pis=total_value * self.tax_values["valor_pis"],
+        )
+        if tax_values["valor_ir"] < 10:
+            tax_values["valor_ir"] = 0
 
-    # @staticmethod
-    # def calc_tax(self, total_value: Decimal) -> dict:
-    #     # rounding
-    #     for k, v in tax_values.items():
-    #         tax_values[k] = round(v, 2)
-    #
-    #     # transform to string
-    #     tax_values = {k: str(v) for k, v in tax_values.items()}
-    #
-    #     return tax_values
+        crf_value = sum(tax_values[key] for key in self.CRF_taxes_keys)
+        if crf_value < 10:
+            tax_values["valor_pis"] = 0
+            tax_values["valor_csll"] = 0
+            tax_values["valor_cofins"] = 0
+        return tax_values

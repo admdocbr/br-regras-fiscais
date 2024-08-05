@@ -6,7 +6,7 @@ class TaxesCalc:
 
     CRF_taxes_keys = ["valor_cofins", "valor_pis", "valor_csll"]
 
-    tax_values: dict = dict(
+    taxes_percents: dict = dict(
         valor_cofins=Decimal("0.03"),
         valor_csll=Decimal("0.01"),
         valor_ir=Decimal("0.015"),
@@ -20,14 +20,14 @@ class TaxesCalc:
         """
         # calculate the original value
         assumed_taxes = 0
-        ir_value = self.tax_values["valor_ir"]
+        ir_value = self.taxes_percents["valor_ir"]
         if value * ir_value > 10:
             assumed_taxes += ir_value
 
         crf_taxes = (
-            self.tax_values["valor_cofins"]
-            + self.tax_values["valor_pis"]
-            + self.tax_values["valor_csll"]
+            self.taxes_percents["valor_cofins"]
+            + self.taxes_percents["valor_pis"]
+            + self.taxes_percents["valor_csll"]
         )
 
         # crf_taxes = sum(x for )
@@ -47,10 +47,10 @@ class TaxesCalc:
         :return: A dict with the values for Imposto de Renda (IR), COFINS, CSLL, PIS
         """
         tax_values = dict(
-            valor_cofins=total_value * self.tax_values["valor_cofins"],
-            valor_csll=total_value * self.tax_values["valor_csll"],
-            valor_ir=total_value * self.tax_values["valor_ir"],
-            valor_pis=total_value * self.tax_values["valor_pis"],
+            valor_cofins=total_value * self.taxes_percents["valor_cofins"],
+            valor_csll=total_value * self.taxes_percents["valor_csll"],
+            valor_ir=total_value * self.taxes_percents["valor_ir"],
+            valor_pis=total_value * self.taxes_percents["valor_pis"],
         )
         if tax_values["valor_ir"] < 10:
             tax_values["valor_ir"] = 0

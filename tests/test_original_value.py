@@ -12,7 +12,7 @@ class TestOriginalValue(unittest.TestCase):
         # IR tax is 1.5% so the value must be lass than 666.666....
         initial_value = Decimal("666.66")
         value = self.tax_calc.original_nota_value(initial_value)
-        taxes = self.tax_calc.tax_values.copy()
+        taxes = self.tax_calc.taxes_percents.copy()
         taxes.pop("valor_ir")
         total_taxes = sum(taxes.values())
         taxes_values = value * total_taxes
@@ -29,7 +29,7 @@ class TestOriginalValue(unittest.TestCase):
     def test_calc_normal_rules(self):
         initial_value = Decimal("1000.00")
         value = self.tax_calc.original_nota_value(initial_value)
-        taxes = self.tax_calc.tax_values
+        taxes = self.tax_calc.taxes_percents
         total_taxes = sum(taxes.values())
         taxes_values = value * total_taxes
         reverted_value = taxes_values + initial_value

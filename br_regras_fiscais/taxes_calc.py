@@ -17,35 +17,27 @@ class TaxesCalc:
             assumed_taxes += ir_value
 
         crf_taxes = (
-                self.tax_values["valor_cofins"]
-                + self.tax_values["valor_pis"]
-                + self.tax_values["valor_csll"]
+            self.tax_values["valor_cofins"]
+            + self.tax_values["valor_pis"]
+            + self.tax_values["valor_csll"]
         )
         if value * crf_taxes > 10:
             assumed_taxes += crf_taxes
 
         # back calculate the original value
-        original_value = round(value / (1 - assumed_taxes), 2)
+        original_value = value / (1 - assumed_taxes)
 
-        return original_value
+        return original_value.quantize(Decimal("0.00"))
 
+    # TODO call Allephy check this rules, but first understand where we are actually using it
 
-# TODO call Allephy check this rules, but first understand where we are actually using it
-
-# @staticmethod
-#     def calc_tax(total_value: Decimal) -> dict:
-#         # calculate taxes
-#         tax_values = dict(
-#             valor_cofins=total_value * settings.tax_values["valor_cofins"],
-#             valor_csll=total_value * settings.tax_values["valor_csll"],
-#             valor_ir=total_value * settings.tax_values["valor_ir"],
-#             valor_pis=total_value * settings.tax_values["valor_pis"],
-#         )
-#         # rounding
-#         for k, v in tax_values.items():
-#             tax_values[k] = round(v, 2)
-#
-#         # transform to string
-#         tax_values = {k: str(v) for k, v in tax_values.items()}
-#
-#         return tax_values
+    # @staticmethod
+    # def calc_tax(self, total_value: Decimal) -> dict:
+    #     # rounding
+    #     for k, v in tax_values.items():
+    #         tax_values[k] = round(v, 2)
+    #
+    #     # transform to string
+    #     tax_values = {k: str(v) for k, v in tax_values.items()}
+    #
+    #     return tax_values

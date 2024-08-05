@@ -5,7 +5,6 @@ from br_regras_fiscais.taxes_calc import TaxesCalc
 
 
 class TestTaxesCalc(unittest.TestCase):
-
     def setUp(self):
         self.tax_calc = TaxesCalc()
 
@@ -18,7 +17,7 @@ class TestTaxesCalc(unittest.TestCase):
         total_taxes = sum(taxes.values())
         taxes_values = value * total_taxes
         reverted_value = taxes_values + initial_value
-        rounded_result = reverted_value.quantize(Decimal('0.00'))
+        rounded_result = reverted_value.quantize(Decimal("0.00"))
         assert value == rounded_result
 
     def test_calc_CRF_inferior_10_reais(self):
@@ -34,5 +33,5 @@ class TestTaxesCalc(unittest.TestCase):
         total_taxes = sum(taxes.values())
         taxes_values = value * total_taxes
         reverted_value = taxes_values + initial_value
-        rounded_result = reverted_value.quantize(Decimal('0.00'))
+        rounded_result = reverted_value.quantize(Decimal("0.00"))
         assert value == rounded_result

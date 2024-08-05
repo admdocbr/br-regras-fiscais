@@ -2,6 +2,8 @@ from decimal import Decimal
 
 
 class TaxesCalc:
+    # TODO data class python  ?
+
     CRF_taxes_keys = ["valor_cofins", "valor_pis", "valor_csll"]
 
     tax_values: dict = dict(
@@ -12,6 +14,10 @@ class TaxesCalc:
     )
 
     def original_nota_value(self, value: Decimal) -> Decimal:
+        """
+        :param value: The payment received after taxes
+        :return: Outputs the original value from the Nota Fiscal (total_value)
+        """
         # calculate the original value
         assumed_taxes = 0
         ir_value = self.tax_values["valor_ir"]
@@ -35,7 +41,11 @@ class TaxesCalc:
 
     # TODO call Allephy check this rules, but first understand where we are actually using it
     # TODO output dict for nfe on core_api
-    def calc_tax(self, total_value: Decimal) -> dict:
+    def tax_dict(self, total_value: Decimal) -> dict:
+        """
+        :param total_value: Total value of the Nota Fiscal
+        :return: A dict with the values for Imposto de Renda (IR), COFINS, CSLL, PIS
+        """
         tax_values = dict(
             valor_cofins=total_value * self.tax_values["valor_cofins"],
             valor_csll=total_value * self.tax_values["valor_csll"],

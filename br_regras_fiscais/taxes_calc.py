@@ -9,8 +9,9 @@ class Taxes:
     ir: Decimal
     pis: Decimal
 
-
-CRF_taxes_keys = ["cofins", "pis", "csll"]
+    @property
+    def sum_crf(self) -> Decimal:
+        return self.pis + self.csll + self.cofins
 
 
 @dataclass
@@ -68,8 +69,7 @@ class TaxesCalc:
         if tax_values.ir < 10:
             tax_values.ir = 0
 
-        crf_value = sum(tax_values.__dict__[key] for key in CRF_taxes_keys)
-        if crf_value < 10:
+        if tax_values.sum_crf < 10:
             tax_values.pis = 0
             tax_values.csll = 0
             tax_values.cofins = 0

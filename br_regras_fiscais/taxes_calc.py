@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Taxes:
+class TaxesValues:
     cofins: Decimal
     csll: Decimal
     ir: Decimal
@@ -24,7 +24,7 @@ class TaxesPercents:
     @property
     def crf_taxes(self) -> Decimal:
         # Correctly calculate the sum of the crf taxes percents
-        return self.pis + self.cofins + self.pis
+        return self.pis + self.csll + self.cofins
 
     @property
     def all_taxes(self) -> Decimal:
@@ -32,45 +32,47 @@ class TaxesPercents:
         return self.crf_taxes + self.ir
 
 
-class TaxesCalc:
-    def original_nota_value(self, value: Decimal) -> Decimal:
-        """
-        :param value: The payment received after taxes
-        :return: Outputs the original value from the Nota Fiscal (total_value)
-        """
-        # calculate the original value
-        assumed_taxes = 0
-        ir_value = TaxesPercents().ir * value
-        if ir_value > 10:
-            assumed_taxes += TaxesPercents().ir
+def original_nota_value(value: Decimal) -> Decimal:
+    """
+    :param value: The payment received after taxes
+    :return: Outputs the original value from the Nota Fiscal (total_value)
+    """
+    # calculate the original value
+    assumed_taxes = 0
+    taxes_percents = TaxesPercents()
+    ir_value = taxes_percents.ir * value
+    if ir_value > 10:
+        assumed_taxes += taxes_percents.ir
 
-        crf_taxes = value * TaxesPercents().crf_taxes
+    crf_taxes = value * taxes_percents.crf_taxes
 
-        if crf_taxes > 10:
-            assumed_taxes += TaxesPercents().crf_taxes
+    if crf_taxes > 10:
+        assumed_taxes += taxes_percents.crf_taxes
 
-        # back calculate the original value
-        original_value = value / (1 - assumed_taxes)
+    # back calculate the original value
+    original_value = value / (1 - assumed_taxes)
 
-        return original_value.quantize(Decimal("0.00"))
+    return original_value.quantize(Decimal("0.00"))
 
-    def tax_dict(self, total_value: Decimal) -> Taxes:
-        """
-        :param total_value: Total value of the Nota Fiscal
-        :return: A Taxes DataClass with the values for Imposto de Renda (IR), COFINS, CSLL, PIS
-        """
 
-        tax_values = Taxes(
-            cofins=total_value * TaxesPercents.cofins,
-            csll=total_value * TaxesPercents.csll,
-            ir=total_value * TaxesPercents.ir,
-            pis=total_value * TaxesPercents.pis,
-        )
-        if tax_values.ir < 10:
-            tax_values.ir = 0
+def tax_dict(total_value: Decimal) -> TaxesValues:
+    """
+    :param total_value: Total value of the Nota Fiscal
+    :return: A Taxes DataClass with the values for Imposto de Renda (IR), COFINS, CSLL, PIS
+    """
+    taxes_percents = TaxesPercents()
 
-        if tax_values.sum_crf < 10:
-            tax_values.pis = 0
-            tax_values.csll = 0
-            tax_values.cofins = 0
-        return tax_values
+    tax_values = TaxesValues(
+        cofins=total_value * taxes_percents.cofins,
+        csll=total_value * taxes_percents.csll,
+        ir=total_value * taxes_percents.ir,
+        pis=total_value * taxes_percents.pis,
+    )
+    if tax_values.ir < 10:
+        tax_values.ir = 0
+
+    if tax_values.sum_crf < 10:
+        tax_values.pis = 0
+        tax_values.csll = 0
+        tax_values.cofins = 0
+    return tax_values

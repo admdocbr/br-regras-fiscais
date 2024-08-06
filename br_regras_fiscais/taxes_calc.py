@@ -23,12 +23,12 @@ class TaxesPercents:
 
     @property
     def crf_taxes(self) -> Decimal:
-        # Correctly calculate the sum of the crf taxes percents
+        # Calculate the sum of the crf taxes percents
         return self.pis + self.csll + self.cofins
 
     @property
     def all_taxes(self) -> Decimal:
-        # Correctly calculate the sum of all taxes percents
+        # Calculate the sum of all taxes percents
         return self.crf_taxes + self.ir
 
 

@@ -1,14 +1,16 @@
 [tool.poetry]
 name = "br-regras-fiscais"
-version = "0.1.0"
+version = "0.1.1"
 description = "Calculate BR taxes from NF total value, and calculate the original value of a NF from a received payment"
-authors = ["Bjorn Boschman <bjorn.boschman@admdoctor.com.br>", "Julio Reis <juliocsreis@gmail.com>"]
+authors = [
+    "Bjorn Boschman <bjorn.boschman@admdoctor.com.br>", 
+    "Julio Reis <juliocsreis@gmail.com>"
+]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pytest = "^8.3.2"
 
 
 [build-system]

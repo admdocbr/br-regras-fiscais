@@ -42,5 +42,5 @@ Returns a Data Class with the taxes values:
 ```
 >>> from br_regras_fiscais.taxes_calc import tax_dict
 >>> tax_dict(1000)
-TaxesValues(cofins=Decimal('30.00'), csll=Decimal('10.00'), ir=Decimal('15.000'), pis=Decimal('6.5000'))
+TaxesValues(cofins=Decimal('30.00'), csll=Decimal('10.00'), ir=Decimal('15.00'), pis=Decimal('6.50'))
 ```

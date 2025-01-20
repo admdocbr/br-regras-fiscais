@@ -40,19 +40,19 @@ def original_nota_value(value: Decimal) -> Decimal:
     # calculate the original value
     assumed_taxes = 0
     taxes_percents = TaxesPercents()
-    ir_value = taxes_percents.ir * value
+    ir_value = round(taxes_percents.ir * value, 2)
     if ir_value > 10:
         assumed_taxes += taxes_percents.ir
 
-    crf_taxes = value * taxes_percents.crf_taxes
+    crf_taxes = round(value * taxes_percents.crf_taxes, 2)
 
     if crf_taxes > 10:
         assumed_taxes += taxes_percents.crf_taxes
 
     # back calculate the original value
-    original_value = value / (1 - assumed_taxes)
+    original_value = round(value / (1 - assumed_taxes), 2)
 
-    return original_value.quantize(Decimal("0.00"))
+    return original_value
 
 
 def tax_dict(total_value: Decimal) -> TaxesValues:
@@ -63,11 +63,12 @@ def tax_dict(total_value: Decimal) -> TaxesValues:
     taxes_percents = TaxesPercents()
 
     tax_values = TaxesValues(
-        cofins=total_value * taxes_percents.cofins,
-        csll=total_value * taxes_percents.csll,
-        ir=total_value * taxes_percents.ir,
-        pis=total_value * taxes_percents.pis,
+        cofins=round(total_value * taxes_percents.cofins, 2),
+        csll=round(total_value * taxes_percents.csll, 2),
+        ir=round(total_value * taxes_percents.ir, 2),
+        pis=round(total_value * taxes_percents.pis, 2),
     )
+
     if tax_values.ir < 10:
         tax_values.ir = 0
 

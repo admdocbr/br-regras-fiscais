@@ -9,7 +9,6 @@ class TestTaxesDict(unittest.TestCase):
         # IR tax is 1.5% so the value must be lass than 666.33....
         initial_value = Decimal("666.33")
         taxes = tax_dict(initial_value)
-        print(taxes)
         assert taxes.ir == 0
 
     def test_calc_CRF_inferior_10_reais(self):

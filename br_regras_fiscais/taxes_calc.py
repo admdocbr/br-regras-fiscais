@@ -8,7 +8,6 @@ class TaxesValues:
     csll: Decimal
     ir: Decimal
     pis: Decimal
-    total_value: Decimal
 
     @property
     def sum_crf(self) -> Decimal:

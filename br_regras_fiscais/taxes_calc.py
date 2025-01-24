@@ -8,10 +8,15 @@ class TaxesValues:
     csll: Decimal
     ir: Decimal
     pis: Decimal
+    total_value: Decimal
 
     @property
     def sum_crf(self) -> Decimal:
         return self.pis + self.csll + self.cofins
+    
+    @property
+    def sum_taxes(self) -> Decimal:
+        return self.sum_crf + self.ir
 
 
 @dataclass
